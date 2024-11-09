@@ -1,6 +1,7 @@
 package com.gusal.hello_ai.controller;
 
 import com.gusal.hello_ai.entity.User;
+import com.gusal.hello_ai.service.GroupService;
 import com.gusal.hello_ai.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +20,14 @@ public class AuthController {
     private static Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private UserService userService;
+    @Autowired
+    private GroupService groupService;
 
     @PostMapping("/register")
     public String signup(@RequestBody User user){
         try{
-            userService.saveUser(user.getEmail(), user.getPassword(), user.getUsername());
+            userService.saveUser(user.getEmail(), user.getPassword(), user.getUserProfile().getName(), user.getUserProfile().getScore());
+            groupService.createGroup("저장한 단어");
             return "User registered successfully";
         } catch (Exception e) {
             return e.getMessage();
@@ -43,7 +47,7 @@ public class AuthController {
     @PostMapping("/update")
     public String update(@RequestBody User user){
         try{
-            userService.updateUser(user.getEmail(), user.getPassword(), user.getUsername());
+            userService.updateUser(user.getEmail(), user.getPassword(),  user.getUserProfile().getName(), user.getUserProfile().getScore());
             return "User updated successfully";
         } catch (Exception e) {
             return e.getMessage();

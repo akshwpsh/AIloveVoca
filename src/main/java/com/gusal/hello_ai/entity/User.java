@@ -1,23 +1,29 @@
 package com.gusal.hello_ai.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
+@Table(name = "user")
 @Getter
 @Setter
 public class User {
-    @Id // primary key
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userID;
 
-    private String username;
-    private String email;
+    private String loginID;
     private String password;
+    private String email;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserProfile userProfile;
 
+    @OneToMany(mappedBy = "user")
+    private List<Group> groups;
+
+    // Getters and Setters
 }
