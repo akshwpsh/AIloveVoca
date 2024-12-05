@@ -62,7 +62,7 @@ public class SecurityConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true);
-            }`
+            }
         };
     }
 
