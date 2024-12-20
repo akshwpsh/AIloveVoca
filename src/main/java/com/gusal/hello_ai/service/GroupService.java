@@ -6,7 +6,6 @@ import com.gusal.hello_ai.entity.WordGroupMapping;
 import com.gusal.hello_ai.repository.GroupRepository;
 import com.gusal.hello_ai.repository.WordGroupMappingRepository;
 import com.gusal.hello_ai.repository.WordRepository;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +42,14 @@ public class GroupService {
         // 매핑 저장
         wordGroupMappingRepository.save(mapping);
     }
+    public void removeWordFromGroup(Long groupId, Long wordId) {
+        WordGroupMapping mapping = wordGroupMappingRepository.findByGroupGroupIDAndWordWordID(groupId, wordId);
+        if (mapping != null) {
+            wordGroupMappingRepository.delete(mapping);
+        } else {
+            throw new IllegalArgumentException("그룹에 해당 단어가 없습니다.");
+        }
+    }
 
     public void createGroup(String groupName) {
         Group group = new Group();
@@ -55,7 +62,7 @@ public class GroupService {
     }
 
     public List<Group> getGroupsByUserId(Long userId) {
-        return groupRepository.findByUserId(userId);
+        return groupRepository.findByUserUserID(userId);
     }
 
 

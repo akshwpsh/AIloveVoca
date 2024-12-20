@@ -9,4 +9,5 @@ import java.util.List;
 public interface WordRepository extends JpaRepository<Word, Long> {
 
     boolean existsByWord(String word);
+    Word findByWord(String word);
 }

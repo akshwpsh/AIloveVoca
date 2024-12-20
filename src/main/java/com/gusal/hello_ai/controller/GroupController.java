@@ -37,7 +37,6 @@ public class GroupController {
         groupService.deleteGroup(groupId);
     }
 
-    //사용자의 모든 그룹과 각 그룹의 단어들을 반환
     @GetMapping("/list")
     public List<Group> getGroupsByUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,7 +45,7 @@ public class GroupController {
         return groupService.getGroupsByUserId(user.getUserID());
     }
 
-    @GetMapping("words")
+    @GetMapping("/words")
     public List<GroupWithWordsDTO> getGroupsWithWords() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
