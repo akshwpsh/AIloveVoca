@@ -41,6 +41,15 @@ public class GroupService {
         wordGroupMappingRepository.save(mapping);
     }
 
+    public void removeWordFromGroup(Long groupId, Long wordId) {
+        WordGroupMapping mapping = wordGroupMappingRepository.findByGroupGroupIDAndWordWordID(groupId, wordId);
+        if (mapping != null) {
+            wordGroupMappingRepository.delete(mapping);
+        } else {
+            throw new IllegalArgumentException("그룹에 해당 단어가 없습니다.");
+        }
+    }
+
     public void createGroup(String groupName) {
         Group group = new Group();
         group.setGroupName(groupName);
@@ -54,4 +63,6 @@ public class GroupService {
     public List<Group> getGroupsByUserId(Long userId) {
         return groupRepository.findByUserUserID(userId);
     }
+
+
 }

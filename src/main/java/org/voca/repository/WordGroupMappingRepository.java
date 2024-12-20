@@ -6,4 +6,5 @@ import org.voca.entity.WordGroupMapping;
 
 @Repository
 public interface WordGroupMappingRepository extends JpaRepository<WordGroupMapping, Long> {
+    WordGroupMapping findByGroupGroupIDAndWordWordID(Long groupId, Long wordId);
 }
