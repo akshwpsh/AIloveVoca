@@ -1,6 +1,7 @@
 package com.gusal.hello_ai.controller;
 
 import com.gusal.hello_ai.entity.User;
+import com.gusal.hello_ai.entity.UserProfile;
 import com.gusal.hello_ai.service.GroupService;
 import com.gusal.hello_ai.service.UserService;
 import org.slf4j.Logger;
@@ -24,10 +25,23 @@ public class AuthController {
     private GroupService groupService;
 
     @PostMapping("/register")
-    public String signup(@RequestBody User user){
-        try{
-            userService.saveUser(user.getEmail(), user.getPassword(), user.getUserProfile().getName(), user.getUserProfile().getScore());
-            groupService.createGroup("저장한 단어");
+    public String signup(@RequestBody User user) {
+        try {
+            // userProfile이 null일 경우 초기화
+            if (user.getUserProfile() == null) {
+                UserProfile userProfile = new UserProfile();
+                userProfile.setUser(user); // 연관 관계 설정
+                user.setUserProfile(userProfile); // User에 추가
+            }
+
+            userService.saveUser(
+                    user.getEmail(),
+                    user.getPassword(),
+                    user.getUserProfile().getName(),
+                    user.getUserProfile().getScore()
+            );
+            groupService.createGroup("저장한 단어", user);
+
             return "User registered successfully";
         } catch (Exception e) {
             return e.getMessage();

@@ -47,17 +47,16 @@ public class SecurityConfig{
     }
 
 
-    // CORS configuration
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://helloai.kro.kr", "http://localhost:3000")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowedOriginPatterns("*") // 모든 도메인 허용
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
+                        .allowedHeaders("*") // 모든 헤더 허용
+                        .allowCredentials(true); // 인증 정보 포함 허용
             }
         };
     }

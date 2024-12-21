@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.gusal.hello_ai.entity.User;
 import java.util.List;
 
 @Service
@@ -51,9 +51,10 @@ public class GroupService {
         }
     }
 
-    public void createGroup(String groupName) {
+    public void createGroup(String groupName, User user) {
         Group group = new Group();
         group.setGroupName(groupName);
+        group.setUser(user);
         groupRepository.save(group);
     }
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "TBL_USER")
 @Getter
 @Setter
 public class User {
@@ -25,5 +25,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Group> groups;
 
-    // Getters and Setters
+    // 기본 생성자
+    public User() {
+        this.userProfile = new UserProfile(); // 기본 초기화
+        this.userProfile.setUser(this); // 연관 관계 설정
+    }
+
 }

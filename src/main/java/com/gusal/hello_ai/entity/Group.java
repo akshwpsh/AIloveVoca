@@ -1,5 +1,6 @@
 package com.gusal.hello_ai.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "UserGroup")
 @Getter
 @Setter
 public class Group {
@@ -19,6 +20,7 @@ public class Group {
 
     @ManyToOne
     @JoinColumn(name = "userID")
+    @JsonIgnore // 순환 참조 방지
     private User user;
 
     @OneToMany(mappedBy = "group")

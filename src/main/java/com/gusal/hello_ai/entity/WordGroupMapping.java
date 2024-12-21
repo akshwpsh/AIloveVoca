@@ -1,12 +1,13 @@
 package com.gusal.hello_ai.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "word_gorup_mapping")
+@Table(name = "WordGroupMapping")
 @Getter
 @Setter
 public class WordGroupMapping {
@@ -20,6 +21,7 @@ public class WordGroupMapping {
 
     @ManyToOne
     @JoinColumn(name = "groupID")
+    @JsonIgnore // 순환 참조 방지
     private Group group;
 
 }

@@ -29,7 +29,11 @@ public class GroupController {
 
    @PostMapping("/create")
     public void createGroup(@RequestBody String groupName) {
-        groupService.createGroup(groupName);
+       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+       String email = authentication.getName();
+       User user = userService.getUserByEmail(email);
+
+        groupService.createGroup(groupName, user);
     }
 
     @DeleteMapping("/{groupId}")

@@ -77,7 +77,7 @@ public class UserService{
     public List<Group> getAllGroupsByUserId(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return groupRepository.findByUserId(user.getUserID());
+        return groupRepository.findByUserUserID(user.getUserID());
     }
 
     // 유저의 모든 그룹과 각 그룹에 포함된 단어를 반환하는 메소드
@@ -85,7 +85,7 @@ public class UserService{
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<Group> groups = groupRepository.findByUserId(user.getUserID());
+        List<Group> groups = groupRepository.findByUserUserID(user.getUserID());
 
         // 각 그룹에 포함된 단어를 DTO로 변환하여 반환
         return groups.stream()
